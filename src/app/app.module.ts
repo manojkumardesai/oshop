@@ -18,6 +18,8 @@ import { RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from './auth.service';
+import { SharedServiceService } from './shared-service.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,7 @@ import { AuthService } from './auth.service';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
@@ -51,7 +54,7 @@ import { AuthService } from './auth.service';
       { path: 'admin/orders', component: AdminOrdersComponent }
     ])
   ],
-  providers: [AuthService],
+  providers: [AuthService, SharedServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
