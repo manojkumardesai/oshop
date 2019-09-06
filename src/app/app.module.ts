@@ -21,6 +21,7 @@ import { AuthService } from './auth.service';
 import { SharedServiceService } from './shared-service.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuardService } from './auth-guard.service';
+import { UserService } from './user.service';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,10 @@ import { AuthGuardService } from './auth-guard.service';
       { path: 'admin/orders', component: AdminOrdersComponent, canActivate: [AuthGuardService] }
     ])
   ],
-  providers: [AuthService, SharedServiceService, AuthGuardService],
+  providers: [AuthService,
+    SharedServiceService,
+    AuthGuardService,
+    UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
