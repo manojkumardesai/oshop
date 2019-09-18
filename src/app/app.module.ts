@@ -22,6 +22,7 @@ import { SharedServiceService } from './shared-service.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuardService } from './auth-guard.service';
 import { UserService } from './user.service';
+import { AdminAuthGuard } from './admin-auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -54,13 +55,21 @@ import { UserService } from './user.service';
       { path: 'order-success', component: OrderSuccessComponent, canActivate: [AuthGuardService] },
       { path: 'my/orders', component: MyOrdersComponent, canActivate: [AuthGuardService] },
 
-      { path: 'admin/products', component: AdminProductsComponent, canActivate: [AuthGuardService] },
-      { path: 'admin/orders', component: AdminOrdersComponent, canActivate: [AuthGuardService] }
+      {
+        path: 'admin/products',
+        component: AdminProductsComponent,
+        canActivate: [AdminAuthGuard]
+      },
+      { path: 'admin/orders',
+        component: AdminOrdersComponent,
+        canActivate: [AdminAuthGuard]
+      }
     ])
   ],
   providers: [AuthService,
     SharedServiceService,
     AuthGuardService,
+    AdminAuthGuard,
     UserService],
   bootstrap: [AppComponent]
 })
