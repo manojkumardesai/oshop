@@ -18,9 +18,13 @@ export class AuthService {
     private afAuth: AngularFireAuth,
     public http: HttpClient,
     private route: ActivatedRoute) {
-    this.user$ = afAuth.authState;
+    this.user$ = afAuth.authState; // Information about user given by logging in with google
    }
 
+  /**
+   *This method is responsible to show sign in with google page
+   *
+   */
   login() {
     const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
     localStorage.setItem('returnUrl', returnUrl);
@@ -35,8 +39,14 @@ export class AuthService {
      return this.http.get('https://api.github.com/users?since=135');
   }
 
+
+  /**
+   * This is a getter method which returns userdetails from 
+   * FIrebase Database
+   *
+   */
   get appUser$(): Observable<AppUser> {
-    return this.user$.pipe(switchMap((user) => {
+    return this.user$.pipe(switchMap((user) => { // we have signed in in fo from google
       if (user) {
         return this.userService.get(user.uid).valueChanges();
       } else {

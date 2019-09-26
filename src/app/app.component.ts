@@ -12,9 +12,9 @@ export class AppComponent {
   constructor(private userService: UserService, private auth: AuthService, router: Router) {
     auth.user$.subscribe(user => {
       if (user) {
-        userService.save(user);
+        userService.save(user); // Once user login is done, it updates our firebase database
         const returnUrl = localStorage.getItem('returnUrl');
-        router.navigateByUrl(returnUrl);
+        router.navigateByUrl(returnUrl); // redirects to the page from were login button was clicked
       }
     });
   }

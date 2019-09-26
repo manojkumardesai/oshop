@@ -16,10 +16,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-
-
-      this.sharedService.setUsers('Login component has been clicked');
-
   }
 
   login() {

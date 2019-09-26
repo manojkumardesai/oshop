@@ -11,7 +11,7 @@ import { AppUser } from '../models/app-user';
 export class BsNavbarComponent implements OnInit {
   appUser: AppUser;
   constructor(private auth: AuthService, public sharedService: SharedServiceService) {
-    auth.appUser$.subscribe(appUser => this.appUser = appUser);
+    auth.appUser$.subscribe(appUser => this.appUser = appUser); // The detail is from DB whic we saved
   }
 
   logout() {
@@ -19,8 +19,5 @@ export class BsNavbarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.sharedService.githubUsers$.subscribe(resp => {
-      console.log(resp);
-    });
   }
 }

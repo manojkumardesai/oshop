@@ -10,6 +10,12 @@ export class UserService {
 
   constructor(private db: AngularFireDatabase) { }
 
+
+  /**
+   * This method is used to save user details in our
+   * Firebase database
+   *
+   */
   save(user: firebase.User) {
     this.db.object('/users/' + user.uid).update({
       name: user.displayName,
@@ -17,7 +23,12 @@ export class UserService {
     });
   }
 
+
+  /**
+   * Takes uid from google signin and gets the users
+   * properties from our firebase database like username, email and isAdmin
+   */
   get(uid: string): AngularFireObject<AppUser> {
-    return this.db.object('/users/' + uid);
+    return this.db.object('/users/' + uid); // Data which we saved in our databse
   }
 }
