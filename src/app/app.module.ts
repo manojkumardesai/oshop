@@ -25,6 +25,8 @@ import { UserService } from './user.service';
 import { AdminAuthGuard } from './admin-auth-guard.service';
 import { ProductFormComponent } from './admin/product-form/product-form.component';
 import { CategoryService } from './category.service';
+import { FormsModule } from '@angular/forms';
+import { ProductService } from './product.service';
 
 @NgModule({
   declarations: [
@@ -48,6 +50,7 @@ import { CategoryService } from './category.service';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     NgbModule,
+    FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
       { path: 'products', component: ProductsComponent },
@@ -59,18 +62,23 @@ import { CategoryService } from './category.service';
       { path: 'my/orders', component: MyOrdersComponent, canActivate: [AuthGuardService] },
 
       {
-        path: 'admin/products',
-        component: AdminProductsComponent,
-        canActivate: [AdminAuthGuard]
-      },
-      {
         path: 'admin/products/new',
         component: ProductFormComponent,
-        canActivate: [AdminAuthGuard]
+        canActivate: [AuthGuardService, AdminAuthGuard]
+      },
+      {
+        path: 'admin/products/:id',
+        component: ProductFormComponent,
+        canActivate: [AuthGuardService, AdminAuthGuard]
+      },
+      {
+        path: 'admin/products',
+        component: AdminProductsComponent,
+        canActivate: [AuthGuardService, AdminAuthGuard]
       },
       { path: 'admin/orders',
         component: AdminOrdersComponent,
-        canActivate: [AdminAuthGuard]
+        canActivate: [AuthGuardService, AdminAuthGuard]
       }
     ])
   ],
@@ -79,7 +87,8 @@ import { CategoryService } from './category.service';
     AuthGuardService,
     AdminAuthGuard,
     UserService,
-  CategoryService],
+    ProductService,
+    CategoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
